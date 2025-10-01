@@ -22,15 +22,15 @@ import java.security.cert.X509Certificate;
 @ServletComponentScan
 @EnableConfigurationProperties
 @EnableAsync(proxyTargetClass = true)
-@SpringBootApplication
-public class MainApplication {
+@SpringBootApplication(scanBasePackages = "io.github.treeyw.*")
+public class DataServiceApplication {
 
 
     public static void main(String[] args) throws Exception {
         //免https证书认证FastDfsFileController
         disableSslverifcation();
         //扫描这些包下面的实体，加入持久化管理
-        new SpringApplicationBuilder(MainApplication.class)
+        new SpringApplicationBuilder(DataServiceApplication.class)
                 .properties("spring.config.location=classpath:/application.yml")
                 .run(args);
     }
