@@ -6,16 +6,23 @@
     </properties>
 
     <groupId>io.github.treeyw</groupId>
-    <artifactId>treedataservice</artifactId>
+    <artifactId>tree-data-service</artifactId>
     <version>1.0.0</version>
-    <name>treedataservice</name>
-    <description>treedataservice</description>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.5.8</version>
+    </parent>
 
     <!--所需依赖-->
     <dependencies>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.github.treeyw</groupId>
-            <artifactId>treecrud</artifactId>
+            <artifactId>tree-crud</artifactId>
             <version>1.0.0</version>
         </dependency>
     </dependencies>
@@ -23,19 +30,19 @@
     <build>
         <plugins>
             <!--作为jar包给别项目引用需要注释掉这个-->
-<!--            <plugin>-->
-<!--                <groupId>org.springframework.boot</groupId>-->
-<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
-<!--                <configuration>-->
-<!--                    <layout>ZIP</layout>-->
-<!--                    <includes>-->
-<!--                        <include>-->
-<!--                            <groupId>nothing</groupId>-->
-<!--                            <artifactId>nothing</artifactId>-->
-<!--                        </include>-->
-<!--                    </includes>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
+            <!--            <plugin>-->
+            <!--                <groupId>org.springframework.boot</groupId>-->
+            <!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
+            <!--                <configuration>-->
+            <!--                    <layout>ZIP</layout>-->
+            <!--                    <includes>-->
+            <!--                        <include>-->
+            <!--                            <groupId>nothing</groupId>-->
+            <!--                            <artifactId>nothing</artifactId>-->
+            <!--                        </include>-->
+            <!--                    </includes>-->
+            <!--                </configuration>-->
+            <!--            </plugin>-->
             <!--maven默认打包，无需莫动-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
