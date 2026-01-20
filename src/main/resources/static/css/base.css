@@ -1,0 +1,9 @@
+.yh-btn{
+    background: white;
+    font-size: 12px;
+    border-radius: 0px;
+}
+.yh-active {
+    border: 1px #3280fc solid;
+    border-bottom: 2px #3280fc solid;
+}

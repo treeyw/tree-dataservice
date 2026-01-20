@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>访问</title>
+    <link rel="stylesheet" href="../dist/css/zui.min.css">
+    <!-- ZUI Javascript 依赖 jQuery -->
+    <script src="../dist/lib/jquery/jquery.js"></script>
+    <!-- ZUI 标准版压缩后的 JavaScript 文件 -->
+    <script src="../dist/js/zui.js"></script>
+    <script src="../dist/lib/treemap/zui.treemap.js"></script>
+    <script src="../js/util/base.js"></script>
+    <script src="../js/util/docInfo.js"></script>
+    <link rel="stylesheet" href="../css/base.css"/>
+</head>
+
+<body style="margin: 40px;height: 100%">
+<div style="width: 600px" id="paramBox">
+    <div class="input-group">
+        <span class="input-group-btn">
+            <input id="methodInp" placeholder="请求方式" type="text" value="POST" class="btn form-control"
+                   style="background-color: #CCCCCC;width: 80px;text-align: center;border-radius: 3px"/>
+        </span>
+        <input id="urlInp" type="text" class="form-control" placeholder="url:"/>
+        <span class="input-group-btn">
+            <button class="btn btn-primary" onclick="send()" type="button">send</button>
+        </span>
+    </div>
+    <div class="btn-group" style="margin-top: 3px">
+        <button id="formData" class="btn yh-btn yh-active" onclick="onParam('formData')">formData</button>
+        <button id="raw" class="btn yh-btn" onclick="onParam('raw')">raw</button>
+        <button id="header" class="btn yh-btn" onclick="onParam('header')">header</button>
+        <button id="doc" class="btn yh-btn" onclick="onParam('doc')">文档</button>
+    </div>
+
+    <form id="formBox">
+        <div id="formParamBox" class="input-group" style="margin-top: 4px;width: 600px">
+            <input readonly type="text" class="form-control" style="width: 40px">
+            <span class="input-group-addon fix-border "></span>
+            <input readonly type="text" class="form-control" placeholder="key" style="width: 160px">
+            <span class="input-group-addon fix-border "></span>
+            <input readonly type="text" class="form-control" placeholder="val" style="width: 320px">
+            <span class="input-group-addon fix-border"></span>
+            <input readonly type="text" class="form-control" placeholder="说明" style="width: 80px">
+            <button id="submitBt" type="submit" style="display: none">提交</button>
+        </div>
+    </form>
+
+    <hr>
+    <pre class="prettyprint prettyprinted" style="">
+        <code class="lang-html" id="sendMsg">
+
+        </code>
+    </pre>
+</div>
+<div style="display:  none">
+    <div id="inpHtml">
+        <div class="input-group">
+        <span class="input-group-addon" style="width: 39px;background-color: white">
+            <input id="#{key}_check" type="checkbox" checked>
+        </span>
+            <span class="input-group-addon fix-border "></span>
+            <input onchange="onchangeKey('#{key}_name','#{key}_val')" id="#{key}_name" keyname="#{key}" value="#{key}" type="text"
+                   class="form-control keys"
+                   placeholder="key"
+                   style="width: 162px">
+            <span class="input-group-addon fix-border "></span>
+            <select id="#{key}_type" onchange="inpType('#{key}_type','#{key}_val')" class="form-control"
+                    style="width: 70px">
+                <option id="#{key}_type_text" value="text">text</option>
+                <option id="#{key}_type_file" value="file">file</option>
+            </select>
+            <span class="input-group-addon fix-border "></span>
+            <input name="#{key}" id="#{key}_val" value="#{val}" type="#{type}" class="form-control" placeholder=""
+                   style="width: 250px">
+            <span class="input-group-addon fix-border"></span>
+            <input id="#{key}_yl" value="#{说明}" type="text" class="form-control" placeholder="" style="width: 80px">
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

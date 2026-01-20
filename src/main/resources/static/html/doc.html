@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>接口列表</title>
+    <link rel="stylesheet" href="../dist/css/zui.min.css">
+    <!-- ZUI Javascript 依赖 jQuery -->
+    <script src="../dist/lib/jquery/jquery.js"></script>
+    <!-- ZUI 标准版压缩后的 JavaScript 文件 -->
+    <script src="../dist/js/zui.js"></script>
+    <script src="../dist/lib/treemap/zui.treemap.js"></script>
+    <script src="../js/util/base.js"></script>
+    <script src="../js/util/doc.js"></script>
+    <script src="../dist/lib/tabs/zui.tabs.js"></script>
+    <link rel="stylesheet" href="../dist/lib/tabs/zui.tabs.css">
+    <style>
+        .tree-menu {
+            overflow: visible;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body style="padding: 40px;">
+<!-- 搜索框容器 -->
+<div style="width: 23%;top:7px;float: left;left:73%;height: 100%;position: fixed;overflow: auto;z-index:9999;">
+    <input id="apiSearchInput" type="text" placeholder="搜索接口名"
+           style="padding:5px; width:100%; border:1px solid #ccc; border-radius:4px;">
+    <div id="apiSearchResults"
+         style="max-height:300px; overflow-y:auto; border:1px solid #ccc; display:none;
+        position:absolute; background:#fff; width:220px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15); z-index:9999;">
+    </div>
+</div>
+<nav class="menu" data-ride="menu" style="width: 350px;float: left;position: fixed;height: 100%;overflow: auto">
+    <ul id="treeMenu" class="tree tree-menu" data-ride="tree">
+    </ul>
+</nav>
+<div class="tabs" id="tabsExample"
+     style="width: 73%;float: left;margin-left: 350px;height:1000px">
+</div>
+<script>
+
+</script>
+<!--用于取值替换的代码-->
+<div style="display: none">
+
+
+    <div id="tagsHtml">
+        <li class="has-list">
+            <i class="list-toggle icon"></i>
+            <a href="#">#{标签名}</a>
+            <ul id="#{标签id}"></ul>
+        </li>
+    </div>
+    <div id="conHtml">
+        <li class="has-list">
+            <i class="list-toggle icon"></i>
+            <a href="#">#{控制层名}</a>
+            <ul id="#{控制层id}"></ul>
+        </li>
+    </div>
+    <div id="apiHtml">
+        <li>
+            <a href="#" class="api-item" style=" text-decoration: underline" onclick="openApi('#{接口全路径}','#{接口名}')">
+                #{接口名}</a>
+        </li>
+    </div>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>接口文档</title>
+    <link rel="stylesheet" href="../dist/css/zui.min.css">
+    <!-- ZUI Javascript 依赖 jQuery -->
+    <script src="../dist/lib/jquery/jquery.js"></script>
+    <!-- ZUI 标准版压缩后的 JavaScript 文件 -->
+    <script src="../dist/js/zui.js"></script>
+    <script src="../js/util/base.js"></script>
+    <script src="../js/util/docStr.js"></script>
+    <script src="../dist/js/FileSaver.js"></script>
+    <script src="../dist/js/jquery.wordexport.js"></script>
+</head>
+
+
+<body style="margin: 40px;">
+<div id="docBox" style="width: 600px">
+    <div id="titleBox">
+    </div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>说明</th>
+            <th>名称</th>
+            <th>数据类型</th>
+            <th>参数类型</th>
+            <th>必填</th>
+            <th>样例</th>
+        </tr>
+        </thead>
+        <tbody id="tableBody">
+        </tbody>
+    </table>
+</div>
+<div style="display: none">
+    <div id="titleHtml">
+        <h4>#{接口名}</h4>
+        <p>·请求方式： <a>#{方式}</a></p>
+        <p>·url： <a>#{url}</a></p>
+        <p>·接口说明：</p>#{说明}
+    </div>
+    <div>
+        <table class="table " id="">
+            <tbody id="docHtml">
+            <tr>
+                <td>#{explain}</td>
+                <td>#{name}</td>
+                <td>#{type}</td>
+                <td>#{paramType}</td>
+                <td>#{required}</td>
+                <td>#{example}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="bottomHtml">
+        <pre class="prettyprint prettyprinted" style="">
+            <p>·返参示例：</p>
+            <code class="lang-html">
+                #{返参说明}
+            </code>
+        </pre>
+    </div>
+</div>
+</body>
+</html>
