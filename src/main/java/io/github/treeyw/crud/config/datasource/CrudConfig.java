@@ -3,17 +3,17 @@ package io.github.treeyw.crud.config.datasource;
 import io.github.treeyw.crud.util.ObjectUtil;
 import lombok.extern.slf4j.Slf4j;
 
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Date;
-
-import static io.github.treeyw.crud.config.init.CrashStaticCrud.initSysConsoleYml;
-import static io.github.treeyw.crud.util.CheckObjUtil.ckIsEmpty;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.Statement;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import static io.github.treeyw.crud.util.CheckObjUtil.ckIsEmpty;
 
 @Slf4j
 public class CrudConfig {
@@ -30,10 +30,15 @@ public class CrudConfig {
 
     /**
      * @author treeyw
-     * @description 初始化数据库，目前支持mysql，需要额外的自己扩展
+     * @description 初始化数据库，目前支持 MySQL 和 SQLite
      * @date 2025/8/24 19:43
      */
     public static void createDatabase(String dbType, String dbName, String url, String username, String password) {
+
+        if ("sqlite".equalsIgnoreCase(dbType)) {
+            createSqliteDatabase(url);
+            return;
+        }
 
         // 提取数据库名称
         if (ckIsEmpty(dbName)) {
@@ -71,18 +76,47 @@ public class CrudConfig {
     }
 
     /**
+     * SQLite 没有独立的建库语句，首次建立连接时会自动创建数据库文件。
+     */
+    private static void createSqliteDatabase(String url) {
+        String sqliteUrl = url.replace("jdbc:log4jdbc:sqlite:", "jdbc:sqlite:");
+        try {
+            createSqliteParentDirectory(sqliteUrl);
+        } catch (Exception e) {
+            throw new IllegalStateException("Error creating SQLite database directory: " + sqliteUrl, e);
+        }
+        try (Connection ignored = DriverManager.getConnection(sqliteUrl)) {
+            log.info("SQLite database is ready: {}", sqliteUrl);
+        } catch (Exception e) {
+            throw new IllegalStateException("Error creating SQLite database: " + sqliteUrl, e);
+        }
+    }
+
+    private static void createSqliteParentDirectory(String sqliteUrl) throws Exception {
+        String location = sqliteUrl.substring("jdbc:sqlite:".length());
+        if (location.isBlank() || ":memory:".equals(location) || location.startsWith("file:")) {
+            return;
+        }
+        Path parent = Path.of(location).toAbsolutePath().getParent();
+        if (parent != null) {
+            Files.createDirectories(parent);
+        }
+    }
+
+    /**
      * @param url JDBC URL
      * @author treeyw
      * @description 去掉 JDBC URL 中的数据库名，保留参数部分
      * @date 2025/8/24 19:43
      */
     public static String stripDatabaseFromUrl(String url) {
+        url=url.replace("log4jdbc:","");
         if (ckIsEmpty(url)) return url;
         if (url.contains("?")) {
             //?前面去掉最后一个/到?中间的
-             String temp = url.substring(0, url.indexOf("?"));
-             temp= temp.substring(0, temp.lastIndexOf("/"));
-                return temp + url.substring(url.indexOf("?"));
+            String temp = url.substring(0, url.indexOf("?"));
+            temp= temp.substring(0, temp.lastIndexOf("/"));
+            return temp + url.substring(url.indexOf("?"));
             //没参数直接去掉最后一个/到结尾
         }
         return url.substring(0, url.lastIndexOf("/"));

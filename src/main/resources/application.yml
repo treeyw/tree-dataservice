@@ -39,7 +39,18 @@ tree-crud:
         max-active: 5
         ddlAuto: update
         dialect: org.hibernate.dialect.MySQL8Dialect
-
+      sqlite:
+        dbType: sqlite
+        dbName: tree.db # SQLite 不使用该字段，保留仅为配置结构统一
+        url: jdbc:sqlite:I:/data/sqlite/tree.db
+        username:
+        password:
+        driver-class-name: org.sqlite.JDBC
+        max-wait: 10000
+        min-idle: 1
+        max-active: 5
+        ddlAuto: update
+        dialect: org.hibernate.community.dialect.SQLiteDialect
   logging:
     level:
       root: info
